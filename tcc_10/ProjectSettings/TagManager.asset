@@ -7,6 +7,9 @@ TagManager:
   - Moedas
   - sensor1
   - sensor2
+  - destruir
+  - mortesuperior
+  - inimigoR
   layers:
   - Default
   - TransparentFX

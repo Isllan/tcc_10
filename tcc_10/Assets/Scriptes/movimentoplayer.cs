@@ -14,6 +14,11 @@ public class movimentoplayer : MonoBehaviour
     public LayerMask layerGround;
     public int moedas;
     public TextMeshProUGUI textoMoedas;
+
+
+    public GameObject inimigo;
+
+    public float forcaimpulso;
     
 
 
@@ -56,6 +61,17 @@ public class movimentoplayer : MonoBehaviour
             textoMoedas.text = moedas.ToString();
 
             Destroy(col.gameObject);
+        }
+
+        if(col.gameObject.tag == "inimigoR")
+        {
+            Destroy(gameObject);
+        }
+
+        if(col.gameObject.tag == "mortesuperior")
+        {
+            Destroy(inimigo.gameObject);
+            rb.AddForce(Vector2.up * forcaimpulso, ForceMode2D.Impulse);
         }
     }
         #region 

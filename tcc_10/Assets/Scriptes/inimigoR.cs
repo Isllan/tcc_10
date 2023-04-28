@@ -59,6 +59,9 @@ public class inimigoR : MonoBehaviour
         {
             trocardirecao = 1;
         }
-
+        if(collision.gameObject.tag == "destruir")
+        {
+            Destroy(gameObject);
+        }
     }
 }
