@@ -10,6 +10,8 @@ TagManager:
   - destruir
   - mortesuperior
   - inimigoR
+  - "ma\xE7a"
+  - agua
   layers:
   - Default
   - TransparentFX
