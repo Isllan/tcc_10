@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.InputSystem;
 public class movimentoplayer : MonoBehaviour
 {
     public float speed = 5f;
@@ -19,21 +21,28 @@ public class movimentoplayer : MonoBehaviour
     public TextMeshProUGUI textomaca;
     private int agua;
     public TextMeshProUGUI textoagua;
-    
     private inimigoR inimigoR;
-
-
     public GameObject inimigo;
-
     public float forcaimpulso;
-
-
     public GameObject historia;
 
+    public float horizontalInput;
 
+    public bool ativador;
+
+    public Button botaoDireita;
+
+
+    public Vector2 movimentoHorizontal;
+
+    Vector3 movement;
+
+
+    public 
     void Start()
     {
 
+        ativador = false;
         inimigoR = FindObjectOfType(typeof(inimigoR)) as inimigoR;
 
         inimigoR.speed = 0;
@@ -44,15 +53,26 @@ public class movimentoplayer : MonoBehaviour
     }
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-        Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput);
-
-        transform.position += movement * speed * Time.deltaTime;
+        // horizontalInput = Input.GetAxis("Horizontal");
+      //  float verticalInput = Input.GetAxis("Vertical");
 
        
 
+        transform.position += movement * speed * Time.deltaTime;
+
+       if(ativador == true)
+        {
+            horizontalInput = 1;
+
+             movement = new Vector3(1, 0f, 0f);
+
+            transform.position += movement * speed * Time.deltaTime;
+
+        }else
+        {
+            horizontalInput = 1;
+        }
+        
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
@@ -64,8 +84,6 @@ public class movimentoplayer : MonoBehaviour
     private void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.3f, layerGround);
-
-        
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -109,6 +127,8 @@ public class movimentoplayer : MonoBehaviour
 
     }
 
+
+ 
     public void tiro()
     {
         Instantiate(projetil, posicaoProjetil.position, Quaternion.identity);
@@ -127,11 +147,31 @@ public class movimentoplayer : MonoBehaviour
     public void direita()
     {
 
+        Debug.Log("direita");
+       
+        if(ativador == false)
+        {
+           
+            ativador = true;
+        }else if(ativador == true)
+        {
+            
+            ativador = false; 
+        }
+       
+
+
+
+        Debug.Log("direito");
     }
+
+    
+  
 
     public void esquerda()
     {
-
+        horizontalInput = -1;
+        Debug.Log("esquerda");
     }
 
     IEnumerator tempohistoria()
