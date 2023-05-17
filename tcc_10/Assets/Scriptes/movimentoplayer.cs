@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 public class movimentoplayer : MonoBehaviour
 {
@@ -25,54 +26,48 @@ public class movimentoplayer : MonoBehaviour
     public GameObject inimigo;
     public float forcaimpulso;
     public GameObject historia;
-
     public float horizontalInput;
-
     public bool ativador;
-
     public Button botaoDireita;
-
-
     public Vector2 movimentoHorizontal;
+    public float movement;
 
-    Vector3 movement;
+
+    public float tempoDecrescente;
+    public float tempoDecorrido;
+    public float tempoInicial;
+    public TextMeshProUGUI tempoFase;
 
 
-    public 
     void Start()
     {
 
         ativador = false;
         inimigoR = FindObjectOfType(typeof(inimigoR)) as inimigoR;
 
-        inimigoR.speed = 0;
+       
         rb = GetComponent<Rigidbody2D>();
 
         StartCoroutine(tempohistoria());
-        
+
+
+       
     }
     void Update()
     {
-        // horizontalInput = Input.GetAxis("Horizontal");
-      //  float verticalInput = Input.GetAxis("Vertical");
+         horizontalInput = Input.GetAxis("Horizontal");
+        //  float verticalInput = Input.GetAxis("Vertical");
 
-       
+        tempoDecrescente += Time.deltaTime;
 
-        transform.position += movement * speed * Time.deltaTime;
+        tempoDecorrido = tempoInicial - tempoDecrescente;
 
-       if(ativador == true)
-        {
-            horizontalInput = 1;
+        tempoFase.text = tempoDecrescente.ToString("0");
 
-             movement = new Vector3(1, 0f, 0f);
 
-            transform.position += movement * speed * Time.deltaTime;
 
-        }else
-        {
-            horizontalInput = 1;
-        }
-        
+        rb.velocity = new Vector2(movement * speed, rb.velocity.y);
+
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
@@ -81,13 +76,14 @@ public class movimentoplayer : MonoBehaviour
 
         //atirar();
     }
+
     private void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.3f, layerGround);
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.gameObject.tag == "Moedas")
+        if (col.gameObject.tag == "Moedas")
         {
             moedas += 1;
 
@@ -96,12 +92,12 @@ public class movimentoplayer : MonoBehaviour
             Destroy(col.gameObject);
         }
 
-        if(col.gameObject.tag == "inimigoR")
+        if (col.gameObject.tag == "inimigoR")
         {
             Destroy(gameObject);
         }
 
-        if(col.gameObject.tag == "mortesuperior")
+        if (col.gameObject.tag == "mortesuperior")
         {
             Destroy(inimigo.gameObject);
             rb.AddForce(Vector2.up * forcaimpulso, ForceMode2D.Impulse);
@@ -127,8 +123,6 @@ public class movimentoplayer : MonoBehaviour
 
     }
 
-
- 
     public void tiro()
     {
         Instantiate(projetil, posicaoProjetil.position, Quaternion.identity);
@@ -144,45 +138,19 @@ public class movimentoplayer : MonoBehaviour
         rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
     }
 
-    public void direita()
-    {
-
-        Debug.Log("direita");
-       
-        if(ativador == false)
-        {
-           
-            ativador = true;
-        }else if(ativador == true)
-        {
-            
-            ativador = false; 
-        }
-       
-
-
-
-        Debug.Log("direito");
-    }
-
     
-  
-
-    public void esquerda()
-    {
-        horizontalInput = -1;
-        Debug.Log("esquerda");
-    }
-
+   
+       
+   
     IEnumerator tempohistoria()
     {
-        
-        yield return new WaitForSeconds(7);
-        historia.SetActive(false);
-        inimigoR.speed = 5;
+
+       yield return new WaitForSeconds(7);
+      //  historia.SetActive(false);
+      //  inimigoR.speed = 5;
 
     }
-        #region 
+    #region 
     public void atirar()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -192,9 +160,20 @@ public class movimentoplayer : MonoBehaviour
         }
     }
 
-
+    
+        
+        
+        
 
 
 
     #endregion
+
+   
+
+
+
+
 }
+
+
