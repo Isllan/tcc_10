@@ -12,6 +12,7 @@ TagManager:
   - inimigoR
   - "ma\xE7a"
   - agua
+  - inimigo
   layers:
   - Default
   - TransparentFX
