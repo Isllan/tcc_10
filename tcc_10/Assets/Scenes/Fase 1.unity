@@ -9026,6 +9026,7 @@ MonoBehaviour:
   tempoDecorrido: 0
   tempoInicial: 0
   tempoFase: {fileID: 857925866}
+  direcao: 0
 --- !u!50 &911773883
 Rigidbody2D:
   serializedVersion: 4
@@ -11316,6 +11317,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   painel: {fileID: 1114753309}
+  isdireita: 0
+  isesquerda: 0
 --- !u!4 &1447234835
 Transform:
   m_ObjectHideFlags: 0
@@ -12258,7 +12261,6 @@ GameObject:
   - component: {fileID: 1693490350}
   - component: {fileID: 1693490349}
   - component: {fileID: 1693490348}
-  - component: {fileID: 1693490351}
   m_Layer: 5
   m_Name: esquerda
   m_TagString: Untagged
@@ -12329,19 +12331,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1693490349}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 911773882}
-        m_TargetAssemblyTypeName: movimentoplayer, Assembly-CSharp
-        m_MethodName: esquerda
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1693490349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12380,22 +12370,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1693490346}
   m_CullTransparentMesh: 1
---- !u!114 &1693490351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1693490346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98df5067c4347c6439e8b04852bd10d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _movimentoPlayer: {fileID: 0}
-  input: 0
-  sensibility: 3
-  pressing: 0
 --- !u!4 &1756313053 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1847046782476158797, guid: 40fbc2cc25622e94cbb4a2472f44a668, type: 3}

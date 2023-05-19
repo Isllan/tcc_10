@@ -28,7 +28,7 @@ public class movimentoplayer : MonoBehaviour
     public GameObject historia;
     public float horizontalInput;
     public bool ativador;
-    public Button botaoDireita;
+  
     public Vector2 movimentoHorizontal;
     public float movement;
 
@@ -38,7 +38,10 @@ public class movimentoplayer : MonoBehaviour
     public float tempoInicial;
     public TextMeshProUGUI tempoFase;
 
+   
+    private button _button;
 
+    public int direcao;
     void Start()
     {
 
@@ -46,6 +49,10 @@ public class movimentoplayer : MonoBehaviour
         inimigoR = FindObjectOfType(typeof(inimigoR)) as inimigoR;
 
        
+
+        _button = FindObjectOfType(typeof(button)) as button;
+
+
         rb = GetComponent<Rigidbody2D>();
 
         StartCoroutine(tempohistoria());
@@ -65,8 +72,8 @@ public class movimentoplayer : MonoBehaviour
         tempoFase.text = tempoDecrescente.ToString("0");
 
 
-
-        rb.velocity = new Vector2(movement * speed, rb.velocity.y);
+       
+      //  rb.velocity = new Vector2(_direcao.input * speed , rb.velocity.y);
 
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
@@ -80,6 +87,8 @@ public class movimentoplayer : MonoBehaviour
     private void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.3f, layerGround);
+
+       
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -135,7 +144,12 @@ public class movimentoplayer : MonoBehaviour
 
     public void pulo()
     {
-        rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+
+        if(isGrounded == true)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+        }
+      
     }
 
     
